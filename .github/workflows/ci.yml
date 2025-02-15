@@ -21,15 +21,18 @@ jobs:
   install_latest:
     runs-on: ubuntu-latest
     steps:
+      - run: go clean -modcache
       - run: go install -v github.com/${GITHUB_REPOSITORY}/cmd/go-version-test@latest
       - run: ${HOME}/go/bin/go-version-test
   install_ref:
     runs-on: ubuntu-latest
     steps:
+      - run: go clean -modcache
       - run: go install -v github.com/${GITHUB_REPOSITORY}/cmd/go-version-test@${GITHUB_SHA}
       - run: ${HOME}/go/bin/go-version-test
   install_HEAD:
     runs-on: ubuntu-latest
     steps:
+      - run: go clean -modcache
       - run: go install -v github.com/${GITHUB_REPOSITORY}/cmd/go-version-test@HEAD
       - run: ${HOME}/go/bin/go-version-test
