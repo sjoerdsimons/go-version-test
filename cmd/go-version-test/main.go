@@ -6,6 +6,7 @@ import (
 	"runtime/debug"
 )
 
+var Version string
 
 func main() {
 	gvt.SayHi();
@@ -25,5 +26,8 @@ func main() {
 		for _, s := range info.Settings {
 			fmt.Printf("Setting: %v\n", s);
 		}
+		fmt.Printf("======\n")
 	}
+
+	fmt.Printf("Version symbol: %v\n", Version);
 }

@@ -15,6 +15,8 @@ jobs:
       - uses: actions/checkout@v4
       - run: go build ./cmd/go-version-test
       - run: ./go-version-test
+      - run: go build -ldflags="-X main.Version=MainVersion" ./cmd/go-version-test
+      - run: ./go-version-test
       - run: go run ./cmd/go-version-test
   install_latest:
     runs-on: ubuntu-latest
