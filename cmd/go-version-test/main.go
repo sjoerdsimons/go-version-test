@@ -28,6 +28,33 @@ func main() {
 		}
 		fmt.Printf("======\n")
 	}
-
 	fmt.Printf("Version symbol: %v\n", Version);
+
+	// Determine best version
+	DeterminedVersion := "unknown"
+	// Explicit set version first
+	if len(Version) > 0 {
+		DeterminedVersion = Version
+	} else {
+		// Try vcs version first as it will only be set on a local build
+		var revision *string;
+		var changed *string;
+		for _, s := range info.Settings {
+			if s.Key == "vcs.revision" {
+				revision = &s.Value
+			}
+			if s.Key == "vcs.modified" {
+				changed = &s.Value
+			}
+		}
+		if revision != nil {
+			DeterminedVersion = *revision;
+			if *changed == "true" {
+				DeterminedVersion += "-dirty"
+			}
+		} else {
+			DeterminedVersion = info.Main.Version
+		}
+	}
+	fmt.Printf("Determined Version: %v\n", DeterminedVersion);
 }
