@@ -16,7 +16,9 @@ func main() {
 		fmt.Printf("No BuildInfo\n");
 	} else {
 		fmt.Printf("=== BuildInfo ===\n")
-		fmt.Printf("Main: %v\n", info.Main);
+		fmt.Printf("Main Path: %v\n", info.Main.Path);
+		fmt.Printf("Main Version: %v\n", info.Main.Version);
+		fmt.Printf("Main Sum: %v\n", info.Main.Sum);
 		for _, d := range info.Deps {
 			fmt.Printf("Dep: %v\n", d);
 		}
