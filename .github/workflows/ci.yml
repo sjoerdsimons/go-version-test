@@ -1,0 +1,33 @@
+---
+name: test
+on:
+  push:
+    branches-ignore:
+      - "gh-readonly-queue/**"
+  pull_request:
+  merge_group:
+
+jobs:
+  from_git:
+    name: from git
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: go build ./cmd/go-version-test
+      - run: ./go-version-test
+      - run: go run ./cmd/go-version-test
+  install_latest:
+    runs-on: ubuntu-latest
+    steps:
+      - run: go install -v github.com/${GITHUB_REPOSITORY}/cmd/go-version-test@latest
+      - run: ${HOME}/go/bin/go-version-test
+  install_ref:
+    runs-on: ubuntu-latest
+    steps:
+      - run: go install -v github.com/${GITHUB_REPOSITORY}/cmd/go-version-test@${GITHUB_SHA}
+      - run: ${HOME}/go/bin/go-version-test
+  install_HEAD:
+    runs-on: ubuntu-latest
+    steps:
+      - run: go install -v github.com/${GITHUB_REPOSITORY}/cmd/go-version-test@HEAD
+      - run: ${HOME}/go/bin/go-version-test
