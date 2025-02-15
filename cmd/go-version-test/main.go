@@ -38,18 +38,18 @@ func main() {
 	} else {
 		// Try vcs version first as it will only be set on a local build
 		var revision *string;
-		var changed *string;
+		var modified *string;
 		for _, s := range info.Settings {
 			if s.Key == "vcs.revision" {
 				revision = &s.Value
 			}
 			if s.Key == "vcs.modified" {
-				changed = &s.Value
+				modified = &s.Value
 			}
 		}
 		if revision != nil {
 			DeterminedVersion = *revision;
-			if *changed == "true" {
+			if modified != nil && *modified == "true" {
 				DeterminedVersion += "-dirty"
 			}
 		} else {
